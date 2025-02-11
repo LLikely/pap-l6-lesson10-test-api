@@ -210,14 +210,13 @@ app.delete("/message/:id", requireMatchingAuthorOrNoUser, async (req, res) => {
 
 const start = async () => {
     try {
-        await connectMongoose();
-
         // EXERCISE 4.4 - 4.6
-
         if (process.env.NODE_ENV === "production") {
+            await connectMongoose();
             app.listen(port, () => console.log(`Server running on port ${port}...`));
         }
         else {
+            await connectMongoose();
             const httpsOptions = {
                 key: fs.readFileSync(path.resolve(__dirname, '../localhost-key.pem')),
                 cert: fs.readFileSync(path.resolve(__dirname, '../localhost.pem'))
